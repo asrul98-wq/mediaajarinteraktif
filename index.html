@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JELAJAH OBSERVASI - Media Pembelajaran Interaktif Bahasa Indonesia Kelas X</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            50: '#f0f6fe',
+                            100: '#e0edfe',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#0f172a',
+                            950: '#090d16'
+                        },
+                        purple: {
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9'
+                        },
+                        yellow: {
+                            400: '#facc15',
+                            500: '#f59e0b',
+                            600: '#d97706'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom scrollbar & micro transitions */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+
+        /* Accessibility text size variables */
+        .text-size-sm { font-size: 0.875rem; }
+        .text-size-base { font-size: 1rem; }
+        .text-size-lg { font-size: 1.125rem; }
+        .text-size-xl { font-size: 1.25rem; }
+
+        /* Animation utilities */
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .pulse-audio {
+            animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            *, ::before, ::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Custom SVG & Hero Glow Styling for Banner */
+        .hero-brush-banner {
+            background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%);
+            clip-path: polygon(2% 0%, 98% 2%, 100% 98%, 0% 95%);
+        }
+        .glow-purple-btn {
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.4);
+        }
+        .glass-card-hero {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans transition-colors duration-300 min-h-screen flex flex-col antialiased">
+
+    <!-- HEADER GLOBAL NAVBAR (Hidden on Landing Page) -->
+    <header id="main-header" class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-all hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            
+            <!-- Logo & Brand -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="navigateTo('landing')">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-purple-500/20">
+                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="font-black text-slate-900 dark:text-white text-base tracking-tight leading-none">JELAJAH OBSERVASI</h1>
+                    <span class="text-[10px] font-semibold text-purple-600 dark:text-purple-400">MPI Bahasa Indonesia X • Oleh: Asrul, S.T., M.T., Gr.</span>
+                </div>
+            </div>
+
+            <!-- Header Quick Actions -->
+            <div class="flex items-center gap-2 sm:gap-4">
+                <!-- Global XP Badge -->
+                <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 text-xs font-bold border border-amber-300 dark:border-amber-700/50">
+                    <i class="fa-solid fa-star text-amber-500"></i>
+                    <span id="user-xp">0 XP</span>
+                </div>
+
+                <!-- Text Size Adjuster -->
+                <div class="hidden md:flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg p-1 border border-slate-200 dark:border-slate-700">
+                    <button onclick="changeTextSize('sm')" class="w-7 h-7 flex items-center justify-center text-xs font-bold rounded hover:bg-white dark:hover:bg-slate-700 transition" title="Teks Kecil">A-</button>
+                    <button onclick="changeTextSize('base')" class="w-7 h-7 flex items-center justify-center text-xs font-bold rounded hover:bg-white dark:hover:bg-slate-700 transition" title="Teks Normal">A</button>
+                    <button onclick="changeTextSize('lg')" class="w-7 h-7 flex items-center justify-center text-sm font-bold rounded hover:bg-white dark:hover:bg-slate-700 transition" title="Teks Besar">A+</button>
+                </div>
+
+                <!-- Theme Toggle Button -->
+                <button onclick="toggleTheme()" class="w-9 h-9 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 transition" title="Beralih Tema">
+                    <i class="fa-solid fa-sun hidden dark:inline text-amber-400"></i>
+                    <i class="fa-solid fa-moon inline dark:hidden text-slate-600"></i>
+                </button>
+
+                <!-- Audio Settings Button -->
+                <button onclick="openAudioSettings()" class="w-9 h-9 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 transition" title="Pengaturan Audio">
+                    <i class="fa-solid fa-volume-high" id="header-audio-icon"></i>
+                </button>
+
+                <!-- Back to Landing Page Button -->
+                <button onclick="navigateTo('landing')" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-300 text-xs font-semibold transition border border-amber-400/30">
+                    <i class="fa-solid fa-circle-arrow-left"></i>
+                    <span>Tampilan Utama</span>
+                </button>
+
+                <!-- Back to Menu Button -->
+                <button onclick="navigateTo('menu')" class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-navy-900 hover:bg-navy-800 text-white dark:bg-purple-600 dark:hover:bg-purple-700 text-xs font-semibold transition">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Menu Utama</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN APP CONTAINER -->
+    <main class="flex-grow flex flex-col relative overflow-x-hidden">
+        
+        <!-- SECTION 1: LANDING PAGE -->
+        <section id="sec-landing" class="active-section min-h-screen flex flex-col justify-between bg-gradient-to-b from-[#1b0638] via-[#2a0b54] to-[#4c156c] text-white relative overflow-hidden p-4 sm:p-8">
+            <!-- Sunset & Indonesian Cultural Backdrop Graphic -->
+            <div class="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-overlay pointer-events-none" style="background-image: url('https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=1600&q=80');"></div>
+            
+            <!-- Atmospheric Lights -->
+            <div class="absolute top-0 right-1/4 w-[500px] h-[500px] bg-purple-500/20 rounded-full blur-[120px] pointer-events-none"></div>
+            <div class="absolute bottom-0 left-10 w-[400px] h-[400px] bg-amber-500/15 rounded-full blur-[100px] pointer-events-none"></div>
+            
+            <!-- Decorative Batik Corner Ornaments -->
+            <div class="absolute bottom-0 left-0 w-48 sm:w-80 h-48 sm:h-80 pointer-events-none opacity-40 z-0">
+                <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full text-amber-400">
+                    <path d="M0 200C50 180 80 140 70 90C60 40 110 10 160 0C100 30 70 70 80 120C90 170 30 190 0 200Z" fill="currentColor" fill-opacity="0.6"/>
+                </svg>
+            </div>
+
+            <!-- Top Header Metadata Bar -->
+            <div class="max-w-7xl mx-auto w-full flex items-center justify-between z-10 pt-2">
+                <div class="flex flex-wrap items-center gap-3">
+                    <span class="px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-white text-xs font-semibold tracking-wider">
+                        BAHASA INDONESIA • KELAS X
+                    </span>
+                    <span class="hidden md:inline-block text-purple-200 text-xs font-medium">
+                        SMA/SMK Kurikulum Merdeka
+                    </span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="toggleTheme()" class="px-4 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white transition text-xs font-medium flex items-center gap-2 backdrop-blur-md">
+                        <i class="fa-solid fa-palette"></i>
+                        <span>Tema</span>
+                    </button>
+                    <button onclick="openAudioSettings()" class="px-4 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white transition text-xs font-medium flex items-center gap-2 backdrop-blur-md">
+                        <i class="fa-solid fa-volume-high"></i>
+                        <span>Audio</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Hero Grid -->
+            <div class="max-w-7xl mx-auto w-full my-auto grid grid-cols-1 lg:grid-cols-12 gap-6 items-center z-10 py-6">
+                <!-- Left Title & Actions Column -->
+                <div class="lg:col-span-6 space-y-6 text-center lg:text-left">
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-2">
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-400/60 bg-amber-400/10 text-amber-300 font-semibold text-xs sm:text-sm">
+                            <i class="fa-solid fa-book-open text-amber-400"></i>
+                            <span>Media Pembelajaran Interaktif (MPI)</span>
+                        </div>
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-300/40 bg-purple-900/60 text-purple-200 font-bold text-xs sm:text-sm shadow-md">
+                            <i class="fa-solid fa-user-gear text-amber-400"></i>
+                            <span>Disusun Oleh: Asrul, S.T., M.T., Gr.</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <div class="flex items-center justify-center lg:justify-start gap-3">
+                            <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-white leading-none">
+                                JELAJAH
+                            </h1>
+                            <div class="w-10 h-10 sm:w-14 sm:h-14 rounded-2xl border-2 border-amber-400 bg-purple-900/80 flex items-center justify-center text-amber-400 shadow-lg shadow-amber-400/30 transform -rotate-12">
+                                <i class="fa-solid fa-magnifying-glass text-xl sm:text-3xl"></i>
+                            </div>
+                        </div>
+                        <h1 class="text-5xl sm:text-7xl font-black tracking-tight leading-none bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-pink-400 to-amber-300 drop-shadow-md">
+                            OBSERVASI
+                        </h1>
+                    </div>
+
+                    <div class="inline-block relative my-2">
+                        <div class="hero-brush-banner px-6 py-2 rounded-lg text-slate-950 font-black text-sm sm:text-lg tracking-wide shadow-lg transform -rotate-1">
+                            Mengungkap Fakta di Sekitar Kita
+                        </div>
+                    </div>
+
+                    <blockquote class="pl-4 border-l-4 border-amber-400 text-purple-100 text-xs sm:text-base italic max-w-lg mx-auto lg:mx-0">
+                        “Setiap objek memiliki cerita, setiap pengamatan menghasilkan pengetahuan.”
+                    </blockquote>
+
+                    <div class="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-4">
+                        <button onclick="startLearning()" class="px-8 py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-purple-500 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-sm sm:text-base glow-purple-btn transform hover:scale-105 transition duration-300 flex items-center gap-3 border border-purple-300/50">
+                            <i class="fa-solid fa-circle-play text-lg"></i>
+                            <span>MULAI BELAJAR</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+
+                        <button onclick="showModal('modal-instructions')" class="px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/30 backdrop-blur-md transition flex items-center gap-2">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <span>PETUNJUK</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Illustration Column -->
+                <div class="lg:col-span-6 relative flex items-center justify-center lg:justify-end">
+                    <div class="relative w-full max-w-lg min-h-[340px] sm:min-h-[420px] flex items-center justify-center">
+                        
+                        <!-- Wayang SVG -->
+                        <div class="absolute left-2 sm:left-6 bottom-4 sm:bottom-8 z-20 w-44 sm:w-64 animate-float">
+                            <svg viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full filter drop-shadow-[0_15px_25px_rgba(0,0,0,0.6)]">
+                                <path d="M100 20 Q120 5 110 40 Q130 35 105 60 Z" fill="#f59e0b" stroke="#78350f" stroke-width="2"/>
+                                <circle cx="100" cy="55" r="22" fill="#fcd34d" stroke="#78350f" stroke-width="2"/>
+                                <path d="M115 55 Q145 60 120 68 Z" fill="#fcd34d" stroke="#78350f" stroke-width="2"/>
+                                <circle cx="106" cy="50" r="3" fill="#1e1b4b"/>
+                                <path d="M92 77 L108 77 L115 140 L85 140 Z" fill="#d97706" stroke="#78350f" stroke-width="2"/>
+                                <path d="M80 140 L120 140 L130 260 L70 260 Z" fill="#b45309" stroke="#451a03" stroke-width="3"/>
+                            </svg>
+                        </div>
+
+                        <!-- Mie Aceh SVG -->
+                        <div class="absolute right-0 bottom-0 z-30 w-52 sm:w-72 filter drop-shadow-[0_20px_30px_rgba(0,0,0,0.7)]">
+                            <svg viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                                <ellipse cx="120" cy="120" rx="110" ry="35" fill="#15803d"/>
+                                <ellipse cx="120" cy="115" rx="95" ry="28" fill="#78350f"/>
+                                <path d="M50 110 Q80 70 120 70 Q160 70 190 110 Z" fill="#d97706"/>
+                                <path d="M90 85 Q110 75 105 95" stroke="#ef4444" stroke-width="7" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+
+                        <!-- Glassmorphic Preview Card -->
+                        <div class="absolute right-2 top-0 sm:top-4 z-10 w-44 sm:w-56 glass-card-hero rounded-3xl p-4 flex flex-col items-center gap-3">
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-purple-950/80 border-2 border-purple-400/80 flex items-center justify-center text-purple-300 shadow-inner">
+                                <i class="fa-solid fa-magnifying-glass text-2xl sm:text-3xl text-purple-300"></i>
+                            </div>
+
+                            <div class="flex flex-wrap gap-1.5 justify-center w-full">
+                                <span class="px-2.5 py-1 rounded-lg bg-purple-900/90 border border-purple-400/40 text-[10px] font-bold text-purple-200">
+                                    <i class="fa-solid fa-masks-theater text-purple-400"></i> Wayang
+                                </span>
+                                <span class="px-2.5 py-1 rounded-lg bg-emerald-950/90 border border-emerald-400/40 text-[10px] font-bold text-emerald-300">
+                                    <i class="fa-solid fa-leaf text-emerald-400"></i> Ekosistem
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Landing Page -->
+            <div class="max-w-7xl mx-auto w-full text-center text-xs text-purple-200/80 border-t border-white/10 pt-3 z-10 flex flex-col sm:flex-row items-center justify-between gap-2">
+                <span>Menginterpretasi Teks Laporan Hasil Observasi (LHO) • Bahasa Indonesia Kelas X SMA/SMK</span>
+                <span class="font-bold text-amber-300">Pengembang: Asrul, S.T., M.T., Gr.</span>
+            </div>
+        </section>
+
+        <!-- SECTION 2: DASHBOARD MENU UTAMA -->
+        <section id="sec-menu" class="hidden min-h-screen py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-8">
+            <div class="bg-gradient-to-r from-navy-900 via-slate-900 to-purple-900 text-white p-6 sm:p-8 rounded-3xl shadow-xl relative overflow-hidden border border-slate-700/50">
+                <div class="relative z-10 space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-xs font-bold uppercase tracking-wider text-purple-300">Dashboard Siswa</span>
+                                <span class="text-xs font-medium text-amber-300 bg-white/10 px-2 py-0.5 rounded-full border border-white/10">Oleh: Asrul, S.T., M.T., Gr.</span>
+                            </div>
+                            <h2 class="text-2xl sm:text-3xl font-extrabold">Jelajah Modul Pembelajaran</h2>
+                            <p class="text-sm text-slate-300 mt-1">Pilih modul pembelajaran di bawah ini untuk memulai pengamatanmu.</p>
+                        </div>
+                        
+                        <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 min-w-[220px]">
+                            <div class="flex justify-between items-center mb-1 text-xs font-semibold">
+                                <span>Progres Belajar</span>
+                                <span id="overall-progress-text" class="text-amber-300 font-extrabold">0%</span>
+                            </div>
+                            <div class="w-full h-3 bg-slate-700 rounded-full overflow-hidden">
+                                <div id="overall-progress-bar" class="h-full bg-gradient-to-r from-amber-400 to-purple-500 w-0 transition-all duration-500"></div>
+                            </div>
+                            <p class="text-[10px] text-slate-300 mt-2 text-right" id="completed-modules-count">0 dari 7 Modul Selesai</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs text-slate-300 font-medium">Lencana Diraih:</span>
+                            <div id="badge-container" class="flex flex-wrap gap-2"></div>
+                        </div>
+                        <button onclick="navigateTo('landing')" class="px-4 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs transition flex items-center gap-1.5 shadow">
+                            <i class="fa-solid fa-house"></i>
+                            <span>Kembali ke Halaman Utama</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Objectives Banner -->
+            <div class="bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800/60 rounded-2xl p-4 sm:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-xl bg-purple-600 text-white flex-shrink-0 flex items-center justify-center">
+                        <i class="fa-solid fa-bullseye text-lg"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm sm:text-base text-purple-950 dark:text-purple-200">Tujuan Pembelajaran Hari Ini:</h4>
+                        <ul class="text-xs sm:text-sm text-purple-900 dark:text-purple-300 list-disc list-inside mt-1 space-y-0.5">
+                            <li>Mengidentifikasi isi teks laporan hasil observasi (LHO).</li>
+                            <li>Menyusun ringkasan isi teks laporan hasil observasi.</li>
+                            <li>Menyimpulkan fungsi teks laporan hasil observasi.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid Menu Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1: Pengenalan LHO -->
+                <div id="card-mod1" class="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-book-bookmark"></i>
+                            </div>
+                            <span id="status-mod1" class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 text-xs font-semibold">Belum</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-navy-900 dark:text-white">1. Pengenalan LHO</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Konsep dasar, tujuan, fakta vs opini, dan struktur teks LHO.</p>
+                        </div>
+                    </div>
+                    <button id="btn-mod1" onclick="navigateTo('pengenalan')" class="mt-6 w-full py-2.5 rounded-xl bg-purple-50 dark:bg-purple-900/30 hover:bg-purple-600 hover:text-white text-purple-700 dark:text-purple-300 text-xs font-bold transition flex items-center justify-center gap-2">
+                        <span>Pelajari Modul</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- Card 2: Jelajah Teks Wayang -->
+                <div id="card-mod2" class="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-scroll"></i>
+                            </div>
+                            <span id="status-mod2" class="px-2.5 py-1 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-xs font-semibold flex items-center gap-1">
+                                <i class="fa-solid fa-lock"></i> Terkunci
+                            </span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-navy-900 dark:text-white">2. Teks LHO Wayang</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Membaca teks utama lengkap dengan narasi audio dan visual wayang.</p>
+                        </div>
+                    </div>
+                    <button id="btn-mod2" onclick="navigateTo('wayang')" class="mt-6 w-full py-2.5 rounded-xl bg-purple-50 dark:bg-purple-900/30 hover:bg-purple-600 hover:text-white text-purple-700 dark:text-purple-300 text-xs font-bold transition flex items-center justify-center gap-2">
+                        <span>Baca & Simak</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- Card 3: Laboratorium Observasi -->
+                <div id="card-mod3" class="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-flask"></i>
+                            </div>
+                            <span id="status-mod3" class="px-2.5 py-1 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-xs font-semibold flex items-center gap-1">
+                                <i class="fa-solid fa-lock"></i> Terkunci
+                            </span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-navy-900 dark:text-white">3. Laboratorium Observasi</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Eksplorasi 4 studi kasus nyata lingkungan sekitar dan kuliner.</p>
+                        </div>
+                    </div>
+                    <button id="btn-mod3" onclick="navigateTo('laboratorium')" class="mt-6 w-full py-2.5 rounded-xl bg-purple-50 dark:bg-purple-900/30 hover:bg-purple-600 hover:text-white text-purple-700 dark:text-purple-300 text-xs font-bold transition flex items-center justify-center gap-2">
+                        <span>Buka Lab Simulasi</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- Card 4: Tantangan Lingkungan -->
+                <div id="card-mod4" class="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-puzzle-piece"></i>
+                            </div>
+                            <span id="status-mod4" class="px-2.5 py-1 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-xs font-semibold flex items-center gap-1">
+                                <i class="fa-solid fa-lock"></i> Terkunci
+                            </span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-navy-900 dark:text-white">4. Tantangan A: Identifikasi</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Mengelompokkan kalimat fakta dan opini secara interaktif.</p>
+                        </div>
+                    </div>
+                    <button id="btn-mod4" onclick="navigateTo('tantangan-a')" class="mt-6 w-full py-2.5 rounded-xl bg-purple-50 dark:bg-purple-900/30 hover:bg-purple-600 hover:text-white text-purple-700 dark:text-purple-300 text-xs font-bold transition flex items-center justify-center gap-2">
+                        <span>Mulai Tantangan</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- Card 5: Susun Ringkasan -->
+                <div id="card-mod5" class="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="w-12 h-12 rounded-xl bg-rose-100 dark:bg-rose-900/50 text-rose-600 dark:text-rose-400 flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-feather"></i>
+                            </div>
+                            <span id="status-mod5" class="px-2.5 py-1 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-xs font-semibold flex items-center gap-1">
+                                <i class="fa-solid fa-lock"></i> Terkunci
+                            </span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-navy-900 dark:text-white">5. Susun Ringkasan</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Praktik memilih dan mengurutkan gagasan utama teks LHO.</p>
+                        </div>
+                    </div>
+                    <button id="btn-mod5" onclick="navigateTo('susun-ringkasan')" class="mt-6 w-full py-2.5 rounded-xl bg-purple-50 dark:bg-purple-900/30 hover:bg-purple-600 hover:text-white text-purple-700 dark:text-purple-300 text-xs font-bold transition flex items-center justify-center gap-2">
+                        <span>Susun Ringkasan</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- Card 6: Evaluasi Akhir -->
+                <div id="card-mod6" class="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <span id="status-mod6" class="px-2.5 py-1 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-xs font-semibold flex items-center gap-1">
+                                <i class="fa-solid fa-lock"></i> Terkunci
+                            </span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-navy-900 dark:text-white">6. Evaluasi 15 Soal</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Ujian otomatis 15 soal lengkap dengan pembahasan.</p>
+                        </div>
+                    </div>
+                    <button id="btn-mod6" onclick="navigateTo('evaluasi')" class="mt-6 w-full py-2.5 rounded-xl bg-purple-50 dark:bg-purple-900/30 hover:bg-purple-600 hover:text-white text-purple-700 dark:text-purple-300 text-xs font-bold transition flex items-center justify-center gap-2">
+                        <span>Kerjakan Evaluasi</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: PENGENALAN MATERI LHO -->
+        <section id="sec-pengenalan" class="hidden min-h-screen py-8 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full space-y-8">
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+                <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+                    <button onclick="navigateTo('landing')" class="hover:underline font-bold text-amber-600 dark:text-amber-400">Halaman Utama</button>
+                    <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    <button onclick="navigateTo('menu')" class="hover:underline">Dashboard</button>
+                    <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    <span class="text-navy-900 dark:text-purple-400 font-semibold">Pengenalan Materi LHO</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="navigateTo('landing')" class="px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold hover:bg-slate-300 transition flex items-center gap-1">
+                        <i class="fa-solid fa-house"></i> Halaman Utama
+                    </button>
+                    <button onclick="completeModule('mod1'); navigateTo('wayang');" class="px-3 py-1.5 rounded-lg bg-purple-600 text-white text-xs font-semibold hover:bg-purple-700 transition">
+                        Lanjut ke Teks Wayang <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <span class="px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 text-xs font-bold uppercase">Modul 1 • Konsep Dasar</span>
+                <h2 class="text-2xl sm:text-4xl font-black text-navy-900 dark:text-white">Memahami Laporan Hasil Observasi</h2>
+                <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm">
+                    Laporan Hasil Observasi (LHO) adalah tulisan yang berisi fakta-fakta hasil pengamatan secara langsung terhadap suatu objek.
+                </p>
+            </div>
+
+            <div class="flex border-b border-slate-200 dark:border-slate-700 overflow-x-auto gap-2 text-sm font-semibold">
+                <button onclick="switchTab('tab-pengertian')" id="btn-tab-pengertian" class="tab-btn active-tab px-4 py-2.5 border-b-2 border-purple-600 text-purple-600 dark:text-purple-400 whitespace-nowrap flex items-center gap-2 transition">
+                    <i class="fa-solid fa-book-bookmark"></i>
+                    <span>Pengertian & Tujuan</span>
+                    <i class="fa-solid fa-circle-check text-emerald-500 text-xs hidden check-icon"></i>
+                </button>
+                <button onclick="switchTab('tab-karakteristik')" id="btn-tab-karakteristik" class="tab-btn px-4 py-2.5 border-b-2 border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 whitespace-nowrap flex items-center gap-2 transition">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span>Karakteristik Teks</span>
+                    <i class="fa-solid fa-circle-check text-emerald-500 text-xs hidden check-icon"></i>
+                </button>
+                <button onclick="switchTab('tab-faktaopini')" id="btn-tab-faktaopini" class="tab-btn px-4 py-2.5 border-b-2 border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 whitespace-nowrap flex items-center gap-2 transition">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                    <span>Fakta vs Opini</span>
+                    <i class="fa-solid fa-circle-check text-emerald-500 text-xs hidden check-icon"></i>
+                </button>
+                <button onclick="switchTab('tab-struktur')" id="btn-tab-struktur" class="tab-btn px-4 py-2.5 border-b-2 border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 whitespace-nowrap flex items-center gap-2 transition">
+                    <i class="fa-solid fa-sitemap"></i>
+                    <span>Struktur Teks</span>
+                    <i class="fa-solid fa-circle-check text-emerald-500 text-xs hidden check-icon"></i>
+                </button>
+            </div>
+
+            <!-- Sub-module Completion Bar & Next Button -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold text-slate-600 dark:text-slate-300">Status Pembacaan:</span>
+                    <span id="mod1-tab-counter" class="text-xs font-extrabold px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300">1 dari 4 Dibaca</span>
+                </div>
+                <button id="btn-next-mod1" onclick="completeModule('mod1'); navigateTo('wayang');" disabled class="px-5 py-2.5 rounded-xl bg-slate-300 dark:bg-slate-700 text-slate-500 font-bold text-xs cursor-not-allowed transition flex items-center gap-2">
+                    <span>Lanjut ke Teks Wayang</span>
+                    <i class="fa-solid fa-lock text-xs"></i>
+                </button>
+            </div>
+
+            <!-- Tab 1 -->
+            <div id="tab-pengertian" class="tab-content space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-4 shadow-sm">
+                        <div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/50 text-purple-600 flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-quote-left text-lg"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-navy-900 dark:text-white">Apa itu Teks LHO?</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Teks Laporan Hasil Observasi (LHO) adalah teks yang memberikan informasi secara umum tentang sesuatu berdasarkan fakta dari hasil pengamatan secara langsung. Observasi dilakukan oleh pengamat dengan mengumpulkan data rinci tentang suatu objek, tempat, atau peristiwa.
+                        </p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-4 shadow-sm">
+                        <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-blue-600 flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-bullseye text-lg"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-navy-900 dark:text-white">Tujuan Utama Teks LHO</h3>
+                        <ul class="text-sm text-slate-600 dark:text-slate-300 space-y-2">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-emerald-500 mt-1"></i>
+                                <span>Menyajikan informasi faktual dan terverifikasi kepada pembaca.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-check text-emerald-500 mt-1"></i>
+                                <span>Menjelaskan dasar pengambilan keputusan atau penyelesaian masalah.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2 -->
+            <div id="tab-karakteristik" class="tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 text-center space-y-2">
+                        <div class="w-12 h-12 mx-auto rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-600 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </div>
+                        <h4 class="font-bold text-navy-900 dark:text-white">1. Bersifat Objektif</h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">Ditulis berdasarkan kenyataan sebenarnya tanpa dipengaruhi pendapat pribadi.</p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 text-center space-y-2">
+                        <div class="w-12 h-12 mx-auto rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-check-double"></i>
+                        </div>
+                        <h4 class="font-bold text-navy-900 dark:text-white">2. Berdasarkan Fakta</h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">Seluruh data yang disajikan dapat dibuktikan kebenarannya.</p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 text-center space-y-2">
+                        <div class="w-12 h-12 mx-auto rounded-full bg-purple-100 dark:bg-purple-900/40 text-purple-600 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-cubes"></i>
+                        </div>
+                        <h4 class="font-bold text-navy-900 dark:text-white">3. Komprehensif</h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">Menjelaskan objek secara terstruktur dari bagian awal hingga rincian detail.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3 -->
+            <div id="tab-faktaopini" class="tab-content hidden space-y-6">
+                <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm">
+                    <div class="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200 dark:divide-slate-700">
+                        <div class="p-6 space-y-3 bg-emerald-50/50 dark:bg-emerald-950/20">
+                            <span class="text-emerald-700 font-bold">FAKTA</span>
+                            <p class="text-xs text-slate-600">Dapat dibuktikan dengan data nyata.</p>
+                        </div>
+                        <div class="p-6 space-y-3 bg-rose-50/50 dark:bg-rose-950/20">
+                            <span class="text-rose-700 font-bold">OPINI</span>
+                            <p class="text-xs text-slate-600">Berisi anggapan/tanggapan subjektif.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 4 -->
+            <div id="tab-struktur" class="tab-content hidden space-y-4">
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border-l-4 border-blue-600 shadow-sm">
+                    <h4 class="font-bold text-navy-900 dark:text-white">1. Pernyataan Umum / Klasifikasi</h4>
+                    <p class="text-xs text-slate-600">Pengertian awal dan klasifikasi umum objek.</p>
+                </div>
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border-l-4 border-purple-600 shadow-sm">
+                    <h4 class="font-bold text-navy-900 dark:text-white">2. Deskripsi Bagian</h4>
+                    <p class="text-xs text-slate-600">Rincian bagian-bagian objek pengamatan.</p>
+                </div>
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border-l-4 border-emerald-600 shadow-sm">
+                    <h4 class="font-bold text-navy-900 dark:text-white">3. Deskripsi Manfaat</h4>
+                    <p class="text-xs text-slate-600">Manfaat dan fungsi objek bagi kehidupan.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: JELAJAH TEKS WAYANG -->
+        <section id="sec-wayang" class="hidden min-h-screen py-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full space-y-8">
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+                <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+                    <button onclick="navigateTo('landing')" class="hover:underline font-bold text-amber-600 dark:text-amber-400">Halaman Utama</button>
+                    <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    <button onclick="navigateTo('menu')" class="hover:underline">Dashboard</button>
+                    <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    <span class="text-navy-900 dark:text-purple-400 font-semibold">Teks LHO Wayang</span>
+                </div>
+                <button id="btn-next-mod2" disabled onclick="completeModule('mod2'); navigateTo('laboratorium');" class="px-4 py-2 rounded-xl bg-slate-300 text-slate-500 text-xs font-bold cursor-not-allowed transition flex items-center gap-2">
+                    <span>Ke Laboratorium Observasi</span>
+                    <i class="fa-solid fa-lock text-xs"></i>
+                </button>
+            </div>
+
+            <div class="bg-gradient-to-r from-navy-900 to-purple-900 rounded-3xl p-6 text-white shadow-lg space-y-4">
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                    <div>
+                        <span class="px-3 py-1 rounded-full bg-purple-500/30 text-purple-200 text-xs font-semibold uppercase">Materi Teks Utama</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold mt-1">Teks LHO: WAYANG</h2>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md p-3 rounded-2xl border border-white/20 flex items-center gap-3">
+                        <button id="btn-play-narration" onclick="toggleTextNarration()" class="w-10 h-10 rounded-xl bg-amber-400 hover:bg-amber-300 text-navy-950 flex items-center justify-center font-bold text-lg shadow transition">
+                            <i class="fa-solid fa-play" id="icon-narration"></i>
+                        </button>
+                        <div class="text-xs">
+                            <p class="font-bold text-amber-300" id="narration-status">Audio Narasi Teks</p>
+                            <p class="text-[10px] text-slate-300">Klik play untuk mendengarkan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-8 bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm space-y-6">
+                    <div class="space-y-6 leading-relaxed text-slate-700 dark:text-slate-200 text-sm sm:text-base" id="wayang-text-body">
+                        <div id="para-1" class="p-4 rounded-2xl border border-transparent">
+                            <span class="inline-block px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-[10px] font-bold text-slate-600 dark:text-slate-300 mb-2">Paragraf 1 • Pernyataan Umum</span>
+                            <p>Wayang adalah seni pertunjukan bayangan tradisional asli Indonesia yang telah berkembang pesat di Pulau Jawa dan Bali. Pada tanggal 7 November 2003, UNESCO menetapkan wayang sebagai karya kebudayaan yang mengagumkan dalam kategori Masterpiece of the Oral and Intangible Heritage of Humanity.</p>
+                        </div>
+                        <div id="para-2" class="p-4 rounded-2xl border border-transparent">
+                            <span class="inline-block px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-[10px] font-bold text-slate-600 dark:text-slate-300 mb-2">Paragraf 2 • Deskripsi Bagian</span>
+                            <p>Para wali songo membagi wayang menjadi tiga kelompok utama berdasarkan bahan pembuatannya: <strong>wayang kulit</strong> dari kulit ternak, <strong>wayang wong</strong> yang dimainkan manusia, dan <strong>wayang golek</strong> berbahan boneka kayu 3D.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-4 space-y-6">
+                    <div class="bg-amber-50 dark:bg-amber-950/30 rounded-3xl p-6 border border-amber-200 dark:border-amber-800 space-y-4">
+                        <span class="font-bold text-amber-800 text-sm">Aktivitas Singkat</span>
+                        <p class="text-xs text-amber-900">Manakah yang sesuai dengan isi teks?</p>
+                        <button onclick="checkMiniQuiz(this, true)" class="w-full p-3 rounded-xl bg-white dark:bg-slate-800 border border-amber-300 text-left text-xs font-medium">
+                            A. UNESCO menetapkan wayang pada 7 November 2003.
+                        </button>
+                        <div id="mini-quiz-feedback" class="hidden p-3 rounded-xl text-xs font-semibold"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: LABORATORIUM OBSERVASI -->
+        <section id="sec-laboratorium" class="hidden min-h-screen py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-8">
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+                <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+                    <button onclick="navigateTo('landing')" class="hover:underline font-bold text-amber-600 dark:text-amber-400">Halaman Utama</button>
+                    <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    <button onclick="navigateTo('menu')" class="hover:underline">Dashboard</button>
+                    <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    <span class="text-navy-900 dark:text-purple-400 font-semibold">Laboratorium Observasi</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span id="lab-cases-counter" class="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300">1 dari 4 Kasus Dieskplorasi</span>
+                    <button id="btn-next-mod3" disabled onclick="completeModule('mod3'); navigateTo('tantangan-a');" class="px-4 py-2 rounded-xl bg-slate-300 text-slate-500 text-xs font-bold cursor-not-allowed transition flex items-center gap-2">
+                        <span>Lanjut ke Tantangan A</span>
+                        <i class="fa-solid fa-lock text-xs"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <button onclick="loadLabCase('pasar')" id="lab-btn-pasar" class="lab-tab-btn p-4 rounded-2xl border-2 border-purple-600 bg-purple-50 dark:bg-purple-900/30 text-center shadow-md transition relative">
+                    <h4 class="font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5">
+                        <span>Pasar Tradisional</span>
+                        <i class="fa-solid fa-circle-check text-emerald-500 hidden check-icon text-xs"></i>
+                    </h4>
+                </button>
+                <button onclick="loadLabCase('sekolah')" id="lab-btn-sekolah" class="lab-tab-btn p-4 rounded-2xl border-2 border-transparent bg-white dark:bg-slate-800 text-center shadow-sm transition relative">
+                    <h4 class="font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5">
+                        <span>Lingkungan Sekolah</span>
+                        <i class="fa-solid fa-circle-check text-emerald-500 hidden check-icon text-xs"></i>
+                    </h4>
+                </button>
+                <button onclick="loadLabCase('mangrove')" id="lab-btn-mangrove" class="lab-tab-btn p-4 rounded-2xl border-2 border-transparent bg-white dark:bg-slate-800 text-center shadow-sm transition relative">
+                    <h4 class="font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5">
+                        <span>Pesisir & Mangrove</span>
+                        <i class="fa-solid fa-circle-check text-emerald-500 hidden check-icon text-xs"></i>
+                    </h4>
+                </button>
+                <button onclick="loadLabCase('aceh')" id="lab-btn-aceh" class="lab-tab-btn p-4 rounded-2xl border-2 border-transparent bg-white dark:bg-slate-800 text-center shadow-sm transition relative">
+                    <h4 class="font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5">
+                        <span>Kuliner Khas Aceh</span>
+                        <i class="fa-solid fa-circle-check text-emerald-500 hidden check-icon text-xs"></i>
+                    </h4>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <button onclick="loadLabCase('pasar')" id="lab-btn-pasar" class="lab-tab-btn p-4 rounded-2xl border-2 border-purple-600 bg-white dark:bg-slate-800 text-center shadow-md">
+                    <h4 class="font-bold text-xs sm:text-sm">Pasar Tradisional</h4>
+                </button>
+                <button onclick="loadLabCase('sekolah')" id="lab-btn-sekolah" class="lab-tab-btn p-4 rounded-2xl border-2 border-transparent bg-white dark:bg-slate-800 text-center shadow-sm">
+                    <h4 class="font-bold text-xs sm:text-sm">Lingkungan Sekolah</h4>
+                </button>
+                <button onclick="loadLabCase('mangrove')" id="lab-btn-mangrove" class="lab-tab-btn p-4 rounded-2xl border-2 border-transparent bg-white dark:bg-slate-800 text-center shadow-sm">
+                    <h4 class="font-bold text-xs sm:text-sm">Pesisir & Mangrove</h4>
+                </button>
+                <button onclick="loadLabCase('aceh')" id="lab-btn-aceh" class="lab-tab-btn p-4 rounded-2xl border-2 border-transparent bg-white dark:bg-slate-800 text-center shadow-sm">
+                    <h4 class="font-bold text-xs sm:text-sm">Kuliner Khas Aceh</h4>
+                </button>
+            </div>
+
+            <div id="lab-display-board" class="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-md space-y-6"></div>
+        </section>
+
+        <!-- SECTION 6A: TANTANGAN A -->
+        <section id="sec-tantangan-a" class="hidden min-h-screen py-8 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full space-y-8">
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+                <button onclick="navigateTo('landing')" class="px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold">
+                    <i class="fa-solid fa-house"></i> Halaman Utama
+                </button>
+                <button id="btn-next-mod4" disabled onclick="completeModule('mod4'); navigateTo('susun-ringkasan');" class="px-4 py-2 rounded-xl bg-slate-300 text-slate-500 text-xs font-bold cursor-not-allowed transition flex items-center gap-2">
+                    <span>Ke Tantangan B & C</span>
+                    <i class="fa-solid fa-lock text-xs"></i>
+                </button>
+            </div>
+
+            <div class="text-center space-y-2">
+                <h2 class="text-2xl font-black text-navy-900 dark:text-white">Tantangan A: Klasifikasi Fakta vs Opini</h2>
+            </div>
+            <div id="quiz-fakta-opini-container" class="space-y-4"></div>
+            <div id="tantangan-a-result" class="hidden p-6 rounded-2xl bg-purple-50 text-center space-y-3">
+                <h3 class="text-lg font-bold text-purple-900" id="t-a-score-title">Selesai!</h3>
+                <p id="t-a-score-desc" class="text-xs text-purple-700"></p>
+            </div>
+        </section>
+
+        <!-- SECTION 6B: SUSUN RINGKASAN -->
+        <section id="sec-susun-ringkasan" class="hidden min-h-screen py-8 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full space-y-8">
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+                <button onclick="navigateTo('landing')" class="px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold">
+                    <i class="fa-solid fa-house"></i> Halaman Utama
+                </button>
+                <button id="btn-next-mod5" disabled onclick="completeModule('mod5'); navigateTo('evaluasi');" class="px-4 py-2 rounded-xl bg-slate-300 text-slate-500 text-xs font-bold cursor-not-allowed transition flex items-center gap-2">
+                    <span>Ke Evaluasi Akhir</span>
+                    <i class="fa-solid fa-lock text-xs"></i>
+                </button>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-sm space-y-6">
+                <h3 class="font-bold text-navy-900 dark:text-white">Pilih 3 Gagasan Utama yang Tepat:</h3>
+                <div class="space-y-3">
+                    <label class="flex items-start gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer">
+                        <input type="checkbox" value="s1" class="summary-cb mt-1 accent-purple-600">
+                        <span class="text-xs">1. Wayang adalah seni pertunjukan bayangan tradisional Indonesia diakui UNESCO tahun 2003.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer">
+                        <input type="checkbox" value="s2" class="summary-cb mt-1 accent-purple-600">
+                        <span class="text-xs">2. Terdapat tiga kelompok utama wayang berdasarkan bahannya: kulit, wong, dan golek.</span>
+                    </label>
+                    <label class="flex items-start gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer">
+                        <input type="checkbox" value="s3" class="summary-cb mt-1 accent-purple-600">
+                        <span class="text-xs">3. Wayang berfungsi sebagai media hiburan, pendidikan moral, dan ritual keagamaan.</span>
+                    </label>
+                </div>
+                <button onclick="evaluateSummaryBuild()" class="px-6 py-3 rounded-xl bg-purple-600 text-white font-bold text-xs">
+                    Periksa Ringkasan Saya
+                </button>
+                <div id="summary-feedback" class="hidden p-4 rounded-2xl text-xs font-semibold"></div>
+            </div>
+        </section>
+
+        <!-- SECTION 7: EVALUASI AKHIR -->
+        <section id="sec-evaluasi" class="hidden min-h-screen py-8 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+                <button onclick="navigateTo('landing')" class="px-3 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold">
+                    <i class="fa-solid fa-house"></i> Halaman Utama
+                </button>
+                <span class="text-xs font-bold text-purple-600 bg-purple-100 px-3 py-1 rounded-full">15 Soal</span>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 space-y-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-extrabold text-navy-900 dark:text-white" id="eval-question-number">Soal 1 dari 15</h3>
+                    <span id="eval-category-badge" class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold">Identifikasi</span>
+                </div>
+                <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                    <div id="eval-progress-bar" class="h-full bg-purple-600 w-1/12"></div>
+                </div>
+                <div id="eval-grid-nav" class="flex flex-wrap gap-1.5 pt-2"></div>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-700 space-y-6">
+                <div class="text-sm font-bold text-navy-900 dark:text-white" id="eval-question-text"></div>
+                <div class="space-y-3" id="eval-options-container"></div>
+                <div class="pt-6 border-t border-slate-100 flex items-center justify-between">
+                    <button id="btn-eval-prev" onclick="prevEvalQuestion()" class="px-5 py-2 rounded-xl bg-slate-100 text-xs font-bold">Sebelumnya</button>
+                    <button id="btn-eval-next" onclick="nextEvalQuestion()" class="px-6 py-2 rounded-xl bg-purple-600 text-white text-xs font-bold">Lanjut</button>
+                    <button id="btn-eval-submit" onclick="submitEvaluation()" class="hidden px-6 py-2 rounded-xl bg-emerald-600 text-white text-xs font-bold">Kirim</button>
+                </div>
+            </div>
+
+            <div id="eval-result-board" class="hidden space-y-6">
+                <div class="bg-gradient-to-r from-navy-900 to-purple-900 text-white p-8 rounded-3xl text-center space-y-4">
+                    <h2 class="text-4xl font-black text-amber-300" id="eval-final-score">0</h2>
+                    <p class="text-sm" id="eval-score-feedback"></p>
+                    <button onclick="navigateTo('refleksi')" class="px-6 py-3 rounded-xl bg-purple-600 text-white font-bold text-xs">Lanjut ke Refleksi</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 8: REFLEKSI PEMBELAJARAN -->
+        <section id="sec-refleksi" class="hidden min-h-screen py-8 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full space-y-8">
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+                <button onclick="navigateTo('landing')" class="px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 font-extrabold text-xs">
+                    <i class="fa-solid fa-house"></i> Halaman Utama
+                </button>
+                <button onclick="navigateTo('menu')" class="px-3 py-1.5 rounded-lg bg-navy-900 text-white text-xs">Kembali ke Dashboard</button>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-700 space-y-6">
+                <h3 class="font-bold text-lg">Refleksi Pembelajaran Siswa</h3>
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold">1. Apa pengetahuan baru yang kamu dapatkan?</label>
+                    <textarea id="ref-q1" rows="3" class="w-full p-3 rounded-xl border border-slate-200 bg-slate-50 dark:bg-slate-900 text-xs"></textarea>
+                </div>
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold">2. Mengapa observasi harus berdasarkan fakta?</label>
+                    <textarea id="ref-q2" rows="3" class="w-full p-3 rounded-xl border border-slate-200 bg-slate-50 dark:bg-slate-900 text-xs"></textarea>
+                </div>
+                <button onclick="saveReflection()" class="px-6 py-3 rounded-xl bg-purple-600 text-white font-bold text-xs">Simpan Refleksi</button>
+                <span id="ref-save-status" class="text-xs text-emerald-600 hidden font-bold ml-2">Tersimpan!</span>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL INSTRUCTIONS -->
+    <div id="modal-instructions" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-lg w-full p-6 space-y-4">
+            <h3 class="font-bold text-lg text-navy-900 dark:text-white">Petunjuk Penggunaan MPI</h3>
+            <p class="text-xs text-slate-600 dark:text-slate-300">Pilih modul pembelajaran pada menu utama untuk membaca materi, mendengarkan audio narasi, dan mengerjakan soal latihan serta evaluasi formatif.</p>
+            <div class="flex justify-end">
+                <button onclick="closeModal('modal-instructions')" class="px-5 py-2 rounded-xl bg-purple-600 text-white font-bold text-xs">Mengerti</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL AUDIO -->
+    <div id="modal-audio" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-md w-full p-6 space-y-4">
+            <h3 class="font-bold text-lg text-navy-900 dark:text-white">Pengaturan Audio</h3>
+            <div class="flex items-center justify-between text-xs">
+                <span>Kecepatan Narator Audio:</span>
+                <input type="range" id="narrator-speed" min="0.7" max="1.3" step="0.1" value="1" class="accent-purple-600">
+            </div>
+            <div class="flex justify-end">
+                <button onclick="closeModal('modal-audio')" class="px-5 py-2 rounded-xl bg-purple-600 text-white font-bold text-xs">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        const appState = {
+            completedModules: { mod1: false, mod2: false, mod3: false, mod4: false, mod5: false, mod6: false, mod7: false },
+            visitedTabs: {
+                mod1: new Set(['tab-pengertian']),
+                mod3: new Set(['pasar'])
+            },
+            xp: 0,
+            textScale: 'base',
+            masterMute: false,
+            narratorVolume: 0.8,
+            currentSection: 'sec-landing'
+        };
+
+        // Module keys in order of prerequisite dependency
+        const moduleSequence = ['mod1', 'mod2', 'mod3', 'mod4', 'mod5', 'mod6'];
+
+        const evalQuestions = [
+            { category: "Identifikasi Isi Teks", question: "1. Berdasarkan teks LHO 'Wayang', kapan UNESCO menetapkan wayang sebagai karya kebudayaan dunia mengagumkan?", options: ["A. 7 November 2003", "B. 17 Agustus 1945", "C. 28 Oktober 1928", "D. 10 November 2005"], answer: 0, explanation: "Teks menyebutkan secara eksplisit bahwa pada tanggal 7 November 2003, UNESCO menetapkan wayang." },
+            { category: "Identifikasi Isi Teks", question: "2. Wayang yang terbuat dari bahan rumput yang dianyam rapi disebut sebagai...", options: ["A. Wayang Golek", "B. Wayang Suket", "C. Wayang Motekar", "D. Wayang Wong"], answer: 1, explanation: "Wayang suket terbuat dari rumput." },
+            { category: "Identifikasi Isi Teks", question: "3. Apa nama jenis wayang plastik berwarna yang memanfaatkan bayangan kain teater?", options: ["A. Wayang Kulit", "B. Wayang Motekar", "C. Wayang Wong", "D. Wayang Beber"], answer: 1, explanation: "Wayang motekar berbahan plastik transparan berwarna." },
+            { category: "Identifikasi Isi Teks", question: "4. Manakah di bawah ini yang merupakan ciri utama kalimat FAKTA dalam teks LHO?", options: ["A. Berisi prasangka", "B. Dapat dibuktikan kebenarannya dengan data konkret", "C. Menggunakan kata 'sebaiknya'", "D. Bersifat subjektif"], answer: 1, explanation: "Fakta dapat dibuktikan kebenarannya." },
+            { category: "Identifikasi Isi Teks", question: "5. Pembagian wayang menjadi tiga kelompok utama oleh Wali Songo didasarkan pada...", options: ["A. Tempat pertunjukan", "B. Bahan pembuatannya", "C. Usia penonton", "D. Jumlah dhalang"], answer: 1, explanation: "Pengelompokan berdasarkan bahan pembuatan." },
+            { category: "Identifikasi Isi Teks", question: "6. Pada studi kasus Pasar Tradisional, manakah yang merupakan data fakta hasil observasi?", options: ["A. Pasar terasa sangat nyaman", "B. Terpantau terdapat 45 lapak pedagang sayur", "C. Bau sampah disukai pembeli", "D. Pedagang pasar sangat ramah"], answer: 1, explanation: "Jumlah lapak adalah data terukur." },
+            { category: "Identifikasi Isi Teks", question: "7. Objek pengamatan pada studi kasus Pesisir dan Mangrove meliputi hal berikut, KECUALI...", options: ["A. Karakteristik mangrove", "B. Fungsi penahan abrasi", "C. Harga jual tanah pesisir di masa depan", "D. Keberadaan sampah"], answer: 2, explanation: "Harga tanah masa depan bersifat asumsi." },
+            { category: "Penyusunan Ringkasan", question: "8. Langkah pertama yang benar dalam menyusun ringkasan teks LHO adalah...", options: ["A. Mengubah isi menjadi fiksi", "B. Membaca teks dan mencatat gagasan utama", "C. Menuliskan pendapat pribadi", "D. Menghapus bagian awal"], answer: 1, explanation: "Merangkum diawali membaca dan mencatat gagasan utama." },
+            { category: "Penyusunan Ringkasan", question: "9. Dalam menyusun ringkasan, informasi rincian kecil sebaiknya...", options: ["A. Dihilangkan untuk kerapatan isi", "B. Ditulis dua kali", "C. Dijadikan judul", "D. Diubah jadi opini"], answer: 0, explanation: "Ringkasan memuat poin pokok." },
+            { category: "Penyusunan Ringkasan", question: "10. Manakah urutan ringkasan yang paling runtut sesuai struktur LHO?", options: ["A. Manfaat -> Bagian -> Umum", "B. Pernyataan Umum -> Deskripsi Bagian -> Deskripsi Manfaat", "C. Bagian -> Umum -> Manfaat", "D. Simpulan -> Umum -> Bagian"], answer: 1, explanation: "Struktur LHO: Umum -> Bagian -> Manfaat." },
+            { category: "Penyusunan Ringkasan", question: "11. Ciri ringkasan teks LHO yang baik adalah...", options: ["A. Lebih panjang dari teks asli", "B. Mempertahankan fakta asli secara runtut", "C. Mengandung kritik pedas", "D. Berisi dialog"], answer: 1, explanation: "Ringkasan setia pada fakta asli." },
+            { category: "Fungsi Teks LHO", question: "12. Manakah fungsi utama teks LHO bagi masyarakat?", options: ["A. Menghibur pembaca", "B. Memberikan ilmu pengetahuan faktual", "C. Mempromosikan produk", "D. Menyampaikan keluhan"], answer: 1, explanation: "LHO memberikan ilmu pengetahuan faktual." },
+            { category: "Fungsi Teks LHO", question: "13. Berdasarkan teks Wayang, fungsi wayang selain media hiburan adalah...", options: ["A. Alat olahraga", "B. Media pendidikan moral dan ritual keagamaan", "C. Alat transportasi", "D. Bahan rumah"], answer: 1, explanation: "Wayang berfungsi sebagai media pendidikan moral." },
+            { category: "Fungsi Teks LHO", question: "14. Hasil laporan observasi lingkungan sekolah dapat difungsikan kepala sekolah untuk...", options: ["A. Dasar pengambilan keputusan perbaikan", "B. Menghukum siswa", "C. Mengabaikan sekolah", "D. Menjual peralatan"], answer: 0, explanation: "Sebagai dasar pengambilan keputusan." },
+            { category: "Fungsi Teks LHO", question: "15. Mengapa hasil observasi ekosistem pesisir mangrove penting dilaporkan?", options: ["A. Untuk keindahan pantai saja", "B. Sebagai dasar tindakan pelestarian pesisir", "C. Mengganti mangrove dengan plastik", "D. Membantu pelayaran"], answer: 1, explanation: "Sebagai data acuan pelestarian lingkungan." }
+        ];
+
+        let currentEvalIndex = 0;
+        let userEvalAnswers = new Array(15).fill(null);
+
+        window.addEventListener('load', () => {
+            initLaboratorium();
+            initQuizFaktaOpini();
+            initEvalQuestionGrid();
+            updateProgressUI();
+            updateTabVisitedVisualsMod1();
+        });
+
+        function navigateTo(sectionId) {
+            const targetId = sectionId.startsWith('sec-') ? sectionId : 'sec-' + sectionId;
+            document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
+            const target = document.getElementById(targetId);
+            if (target) target.classList.remove('hidden');
+
+            const header = document.getElementById('main-header');
+            if (targetId === 'sec-landing') {
+                header.classList.add('hidden');
+            } else {
+                header.classList.remove('hidden');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function startLearning() {
+            navigateTo('menu');
+            addXP(10);
+        }
+
+        function completeModule(modKey) {
+            if (!appState.completedModules[modKey]) {
+                appState.completedModules[modKey] = true;
+                addXP(50);
+                updateProgressUI();
+            }
+        }
+
+        function addXP(points) {
+            appState.xp += points;
+            document.getElementById('user-xp').innerText = `${appState.xp} XP`;
+        }
+
+        function updateProgressUI() {
+            const completedCount = moduleSequence.filter(k => appState.completedModules[k]).length;
+            const percent = Math.round((completedCount / moduleSequence.length) * 100);
+
+            document.getElementById('overall-progress-text').innerText = `${percent}%`;
+            document.getElementById('overall-progress-bar').style.width = `${percent}%`;
+            document.getElementById('completed-modules-count').innerText = `${completedCount} dari ${moduleSequence.length} Modul Selesai`;
+
+            // Update module unlocked state & card badges
+            moduleSequence.forEach((modKey, idx) => {
+                const card = document.getElementById(`card-${modKey}`);
+                const statusBadge = document.getElementById(`status-${modKey}`);
+                const btn = document.getElementById(`btn-${modKey}`);
+
+                if (!card || !statusBadge || !btn) return;
+
+                // Modul 1 is always unlocked. Other modules unlock only when previous module is completed.
+                const isUnlocked = idx === 0 || appState.completedModules[moduleSequence[idx - 1]];
+                const isCompleted = appState.completedModules[modKey];
+
+                if (!isUnlocked) {
+                    // Locked State
+                    card.classList.add('opacity-60', 'grayscale', 'pointer-events-none');
+                    card.classList.remove('hover:-translate-y-1', 'hover:shadow-xl');
+                    statusBadge.className = "px-2.5 py-1 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 text-xs font-semibold flex items-center gap-1";
+                    statusBadge.innerHTML = `<i class="fa-solid fa-lock text-[10px]"></i> Terkunci`;
+                    btn.disabled = true;
+                    btn.className = "mt-6 w-full py-2.5 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-400 text-xs font-bold cursor-not-allowed flex items-center justify-center gap-2";
+                    btn.innerHTML = `<i class="fa-solid fa-lock text-xs"></i><span>Selesaikan Modul ${idx} Dahulu</span>`;
+                } else {
+                    // Unlocked State
+                    card.classList.remove('opacity-60', 'grayscale', 'pointer-events-none');
+                    card.classList.add('hover:-translate-y-1', 'hover:shadow-xl');
+                    btn.disabled = false;
+                    btn.className = "mt-6 w-full py-2.5 rounded-xl bg-purple-50 dark:bg-purple-900/30 hover:bg-purple-600 hover:text-white text-purple-700 dark:text-purple-300 text-xs font-bold transition flex items-center justify-center gap-2";
+
+                    if (isCompleted) {
+                        statusBadge.className = "px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-xs font-semibold flex items-center gap-1";
+                        statusBadge.innerHTML = `<i class="fa-solid fa-circle-check text-[10px]"></i> Selesai`;
+                        btn.innerHTML = `<span>Pelajari Lagi</span><i class="fa-solid fa-rotate-right ml-1"></i>`;
+                    } else {
+                        statusBadge.className = "px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-semibold flex items-center gap-1";
+                        statusBadge.innerHTML = `<i class="fa-solid fa-clock text-[10px]"></i> Belum Selesai`;
+                    }
+                }
+            });
+        }
+
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+        }
+
+        function changeTextSize(size) {
+            document.body.className = document.body.className.replace(/text-size-\w+/g, '');
+            document.body.classList.add(`text-size-${size}`);
+        }
+
+        function openAudioSettings() { document.getElementById('modal-audio').classList.remove('hidden'); }
+        function showModal(id) { document.getElementById(id).classList.remove('hidden'); }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+
+            // Track visited tab for Modul 1
+            appState.visitedTabs.mod1.add(tabId);
+            updateTabVisitedVisualsMod1();
+        }
+
+        function updateTabVisitedVisualsMod1() {
+            const tabs = ['tab-pengertian', 'tab-karakteristik', 'tab-faktaopini', 'tab-struktur'];
+            
+            tabs.forEach(tabKey => {
+                const btn = document.getElementById(`btn-${tabKey}`);
+                if (!btn) return;
+
+                const checkIcon = btn.querySelector('.check-icon');
+                const isVisited = appState.visitedTabs.mod1.has(tabKey);
+                const isCurrentActive = !document.getElementById(tabKey).classList.contains('hidden');
+
+                if (isCurrentActive) {
+                    btn.className = "tab-btn active-tab px-4 py-2.5 border-b-2 border-purple-600 text-purple-600 dark:text-purple-400 font-bold whitespace-nowrap flex items-center gap-2 transition";
+                } else if (isVisited) {
+                    btn.className = "tab-btn px-4 py-2.5 border-b-2 border-emerald-500 text-emerald-600 dark:text-emerald-400 font-semibold whitespace-nowrap flex items-center gap-2 transition bg-emerald-50/40 dark:bg-emerald-950/20";
+                } else {
+                    btn.className = "tab-btn px-4 py-2.5 border-b-2 border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 whitespace-nowrap flex items-center gap-2 transition";
+                }
+
+                if (checkIcon) {
+                    if (isVisited) checkIcon.classList.remove('hidden');
+                    else checkIcon.classList.add('hidden');
+                }
+            });
+
+            // Update counter badge
+            const count = appState.visitedTabs.mod1.size;
+            const counterLabel = document.getElementById('mod1-tab-counter');
+            if (counterLabel) counterLabel.innerText = `${count} dari 4 Dibaca`;
+
+            // Enable next module button if all 4 tabs are visited
+            const btnNext = document.getElementById('btn-next-mod1');
+            if (btnNext) {
+                if (count >= 4) {
+                    btnNext.disabled = false;
+                    btnNext.className = "px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs shadow-md transition flex items-center gap-2 cursor-pointer";
+                    btnNext.innerHTML = `<span>Lanjut ke Teks Wayang</span><i class="fa-solid fa-arrow-right text-xs"></i>`;
+                    if (counterLabel) {
+                        counterLabel.className = "text-xs font-extrabold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300";
+                    }
+                }
+            }
+        }
+
+        function toggleTextNarration() {
+            if (!('speechSynthesis' in window)) return;
+            if (window.speechSynthesis.speaking) {
+                window.speechSynthesis.cancel();
+            } else {
+                const text = document.getElementById('wayang-text-body').innerText;
+                const ut = new SpeechSynthesisUtterance(text);
+                ut.lang = 'id-ID';
+                window.speechSynthesis.speak(ut);
+            }
+        }
+
+        function checkMiniQuiz(btn, isCorrect) {
+            const fb = document.getElementById('mini-quiz-feedback');
+            fb.classList.remove('hidden');
+            if (isCorrect) {
+                fb.className = "p-3 rounded-xl text-xs font-semibold bg-emerald-100 text-emerald-900";
+                fb.innerHTML = 'Benar! UNESCO menetapkan wayang pada 7 November 2003.';
+                
+                // Unlock Next Button for Modul 2
+                const btnNext = document.getElementById('btn-next-mod2');
+                if (btnNext) {
+                    btnNext.disabled = false;
+                    btnNext.className = "px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-md transition flex items-center gap-2 cursor-pointer";
+                    btnNext.innerHTML = `<span>Ke Laboratorium Observasi</span><i class="fa-solid fa-arrow-right text-xs"></i>`;
+                }
+            } else {
+                fb.className = "p-3 rounded-xl text-xs font-semibold bg-rose-100 text-rose-900";
+                fb.innerHTML = 'Kurang tepat. Silakan baca paragraf 1 kembali.';
+            }
+        }
+
+        function initLaboratorium() { loadLabCase('pasar'); }
+        function loadLabCase(key) {
+            appState.visitedTabs.mod3.add(key);
+
+            const cases = ['pasar', 'sekolah', 'mangrove', 'aceh'];
+            cases.forEach(cKey => {
+                const btn = document.getElementById(`lab-btn-${cKey}`);
+                if (!btn) return;
+
+                const checkIcon = btn.querySelector('.check-icon');
+                const isVisited = appState.visitedTabs.mod3.has(cKey);
+                const isCurrentActive = cKey === key;
+
+                if (isCurrentActive) {
+                    btn.className = "lab-tab-btn p-4 rounded-2xl border-2 border-purple-600 bg-purple-50 dark:bg-purple-900/30 text-center shadow-md transition relative";
+                } else if (isVisited) {
+                    btn.className = "lab-tab-btn p-4 rounded-2xl border-2 border-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/30 text-center shadow-sm transition relative";
+                } else {
+                    btn.className = "lab-tab-btn p-4 rounded-2xl border-2 border-transparent bg-white dark:bg-slate-800 text-center shadow-sm transition relative";
+                }
+
+                if (checkIcon) {
+                    if (isVisited) checkIcon.classList.remove('hidden');
+                    else checkIcon.classList.add('hidden');
+                }
+            });
+
+            // Update Counter & Next Button
+            const count = appState.visitedTabs.mod3.size;
+            const counterLabel = document.getElementById('lab-cases-counter');
+            if (counterLabel) counterLabel.innerText = `${count} dari 4 Kasus Dieksplorasi`;
+
+            const btnNext = document.getElementById('btn-next-mod3');
+            if (btnNext && count >= 4) {
+                btnNext.disabled = false;
+                btnNext.className = "px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-md transition flex items-center gap-2 cursor-pointer";
+                btnNext.innerHTML = `<span>Lanjut ke Tantangan A</span><i class="fa-solid fa-arrow-right text-xs"></i>`;
+                if (counterLabel) counterLabel.className = "text-xs font-extrabold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300";
+            }
+
+            const board = document.getElementById('lab-display-board');
+            board.innerHTML = `<h3 class="font-bold text-lg">Studi Kasus: ${key.toUpperCase()}</h3><p class="text-xs text-slate-600 dark:text-slate-300 mt-2">Data observasi disajikan untuk simulasi analisis fakta LHO.</p>`;
+        }
+
+        function initQuizFaktaOpini() {
+            const container = document.getElementById('quiz-fakta-opini-container');
+            container.innerHTML = `
+                <div class="p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 space-y-3">
+                    <p class="text-xs font-bold">1. "Terdapat 12 unit tempat sampah daur ulang di koridor."</p>
+                    <button onclick="answerFaktaOpini(this, true)" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition">FAKTA</button>
+                    <button onclick="answerFaktaOpini(this, false)" class="px-4 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold transition ml-2">OPINI</button>
+                    <div class="text-xs font-bold text-emerald-600 dark:text-emerald-400 mt-2 feedback-text"></div>
+                </div>
+            `;
+        }
+
+        function answerFaktaOpini(btn, choice) {
+            const fb = btn.parentElement.querySelector('.feedback-text');
+            if (choice) {
+                fb.innerText = 'Benar! Kalimat ini adalah FAKTA (terukur dan dapat dibuktikan).';
+                
+                // Unlock Next Button for Modul 4
+                const btnNext = document.getElementById('btn-next-mod4');
+                if (btnNext) {
+                    btnNext.disabled = false;
+                    btnNext.className = "px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-md transition flex items-center gap-2 cursor-pointer";
+                    btnNext.innerHTML = `<span>Ke Tantangan B & C</span><i class="fa-solid fa-arrow-right text-xs"></i>`;
+                }
+            } else {
+                fb.innerText = 'Kurang tepat. Kalimat ini mengandung angka konkret (12 unit).';
+            }
+        }
+
+        function evaluateSummaryBuild() {
+            const checked = Array.from(document.querySelectorAll('.summary-cb:checked')).map(cb => cb.value);
+            const feedback = document.getElementById('summary-feedback');
+            feedback.classList.remove('hidden');
+            if (checked.length === 3) {
+                feedback.className = "p-4 rounded-2xl text-xs font-semibold bg-emerald-100 text-emerald-900 dark:bg-emerald-950/60 dark:text-emerald-200 border border-emerald-300";
+                feedback.innerText = "Sempurna! Ringkasan lengkap dan tepat.";
+                completeModule('mod5');
+
+                // Unlock Next Button for Modul 5
+                const btnNext = document.getElementById('btn-next-mod5');
+                if (btnNext) {
+                    btnNext.disabled = false;
+                    btnNext.className = "px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-md transition flex items-center gap-2 cursor-pointer";
+                    btnNext.innerHTML = `<span>Ke Evaluasi Akhir</span><i class="fa-solid fa-arrow-right text-xs"></i>`;
+                }
+            } else {
+                feedback.className = "p-4 rounded-2xl text-xs font-semibold bg-rose-100 text-rose-900 dark:bg-rose-950/60 dark:text-rose-200 border border-rose-300";
+                feedback.innerText = "Pilih 3 poin gagasan utama.";
+            }
+        }
+
+        function initEvalQuestionGrid() {
+            const grid = document.getElementById('eval-grid-nav');
+            grid.innerHTML = '';
+            for (let i = 0; i < 15; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'w-7 h-7 text-[10px] font-bold rounded-lg border bg-slate-100 text-slate-700';
+                btn.innerText = i + 1;
+                btn.onclick = () => jumpToEvalQuestion(i);
+                grid.appendChild(btn);
+            }
+            renderEvalQuestion(0);
+        }
+
+        function jumpToEvalQuestion(idx) { currentEvalIndex = idx; renderEvalQuestion(idx); }
+        function renderEvalQuestion(idx) {
+            const q = evalQuestions[idx];
+            document.getElementById('eval-question-number').innerText = `Soal ${idx + 1} dari 15`;
+            document.getElementById('eval-category-badge').innerText = q.category;
+            document.getElementById('eval-question-text').innerText = q.question;
+
+            const container = document.getElementById('eval-options-container');
+            container.innerHTML = '';
+            q.options.forEach((opt, oIdx) => {
+                const label = document.createElement('label');
+                label.className = 'flex items-center gap-3 p-3 rounded-xl border cursor-pointer text-xs';
+                label.innerHTML = `<input type="radio" name="opt" onchange="userEvalAnswers[${idx}]=${oIdx}" ${userEvalAnswers[idx]===oIdx?'checked':''}> ${opt}`;
+                container.appendChild(label);
+            });
+        }
+
+        function prevEvalQuestion() { if(currentEvalIndex > 0) renderEvalQuestion(--currentEvalIndex); }
+        function nextEvalQuestion() { if(currentEvalIndex < 14) renderEvalQuestion(++currentEvalIndex); }
+
+        function submitEvaluation() {
+            let correct = 0;
+            evalQuestions.forEach((q, i) => { if(userEvalAnswers[i] === q.answer) correct++; });
+            const score = Math.round((correct/15)*100);
+            document.getElementById('eval-final-score').innerText = score;
+            document.getElementById('eval-score-feedback').innerText = `Jawaban Benar: ${correct} dari 15 Soal`;
+            document.getElementById('eval-result-board').classList.remove('hidden');
+            completeModule('mod6');
+        }
+
+        function saveReflection() {
+            document.getElementById('ref-save-status').classList.remove('hidden');
+            completeModule('mod7');
+        }
+    </script>
+</body>
+</html>
